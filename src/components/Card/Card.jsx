@@ -9,11 +9,7 @@ const Card = () => {
     <div className="card">
       <div className="cardImg">
         <img src={Dine} alt="dineImg" />
-<<<<<<< HEAD
         <h1>Order Onlineeee</h1>
-=======
-        <h1>Order Onlinee12</h1>
->>>>>>> 93234b1 (card file modified)
         <span>Stay home and order to your doorstep</span>
       </div>
       <div className="cardImg">
