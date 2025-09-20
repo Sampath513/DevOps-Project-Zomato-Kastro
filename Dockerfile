@@ -1,23 +1,22 @@
-# Use Node.js 16 slim as the base image
-FROM node:16-slim
-
-# Set the working directory
+# Stage 1: Build React frontend
+FROM node:16-slim AS builder
 WORKDIR /app
-
-# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
-
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application code
+RUN npm ci
 COPY . .
-
-# Build the React app
 RUN npm run build
 
-# Expose port 3000 (or the port your app is configured to listen on)
-EXPOSE 3000
+# Stage 2: Runtime for Node.js server
+FROM node:16-slim
+WORKDIR /app
 
-# Start your Node.js server (assuming it serves the React app)  
+# Copy only necessary files
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copy server code + built frontend
+COPY --from=builder /app/build ./build
+COPY . .
+
+EXPOSE 3000
 CMD ["npm", "start"]
