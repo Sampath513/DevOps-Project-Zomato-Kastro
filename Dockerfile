@@ -1,5 +1,5 @@
 # Stage 1: Build React frontend
-FROM node:16-slim AS builder
+FROM node:16-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Runtime for Node.js server
-FROM node:16-slim
+FROM node:16-alpine
 WORKDIR /app
 
 # Copy only necessary files
@@ -18,4 +18,4 @@ RUN npm ci --only=production
 COPY --from=builder /app/build ./build
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["node", "server/index.js"]
