@@ -16,7 +16,6 @@ RUN npm ci --only=production
 
 # Copy server code + built frontend
 COPY --from=builder /app/build ./build
-COPY . .
 
 EXPOSE 3000
 CMD ["npm", "start"]
