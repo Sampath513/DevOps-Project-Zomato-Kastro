@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+43
+   #!/usr/bin/env bash
 
 # Copyright The Helm Authors.
 #
