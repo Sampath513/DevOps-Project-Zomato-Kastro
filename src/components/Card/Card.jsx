@@ -19,7 +19,7 @@ const Card = () => {
       </div>
       <div className="cardImg">
         <img src={Online} alt="onlineImg" />
-        <h1>Dinning</h1>
+        <h1>Dinning123</h1>
         <span>Views the city's favourite venues</span>
       </div>
     </div>
