@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zomato-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      # ZOMATO APP (default namespace)
+      - path: /zomato(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: zomato
+            port:
+              number: 3000
+
+      # ARGOCD (argocd namespace)
+      - path: /argocd(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              number: 443
+
+      # GRAFANA (monitoring namespace)
+      - path: /grafana(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-grafana
+            port:
+              number: 80
+
+      # PROMETHEUS (monitoring namespace)
+      - path: /prometheus(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: prometheus-grafana-kube-pr-prometheus
+            port:
+              number: 9090
