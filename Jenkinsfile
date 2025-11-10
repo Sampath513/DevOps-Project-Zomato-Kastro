@@ -92,13 +92,13 @@ pipeline {
                    }
                 }
             }
-        }
+        } */
         
         stage ("Deploy to Container") {
             steps {
                 sh 'docker run -d --name ${Container_Name} -p 3000:3000 ${Image_Name}:latest'
             }
-        } */
+        }
         stage ("Update GitOps Repository") {
             steps {
                 script {
