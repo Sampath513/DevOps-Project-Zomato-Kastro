@@ -1,8 +1,8 @@
 pipeline {
     agent any
     tools {
-        jdk 'jdk17'
-        nodejs 'node24'
+        jdk 'jdk21'
+        nodejs 'node21'
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
@@ -46,7 +46,7 @@ pipeline {
         stage("Code Quality Gate"){
            steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token' 
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token' 
                 }
             } 
         }
